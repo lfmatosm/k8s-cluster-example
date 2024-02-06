@@ -1,0 +1,99 @@
+@font-face {
+  font-family: "SourceCodePro";
+  src: url("./assets/SourceCodePro-VariableFont_wght.ttf") format("woff2-variations");
+  font-weight: 125 950;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; 
+}
+
+body {
+  font-family: "SourceCodePro", sans-serif;
+  color: #ffffff;
+  background: #222120;
+  text-align: center;
+  font-weight: 300;
+  line-height: 1.6; 
+  display: flex;
+}
+
+.container {
+  width: 60%;
+  margin: 2rem auto; 
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 12vw);
+  grid-gap: 15px;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+  transition:
+    transform 0.4s,
+    opacity 1s;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+  opacity: 0.5;
+}
+
+.loading {
+  margin: auto;
+  border: 5px solid white;
+  border-radius: 50%;
+  border-top: 5px solid black;
+  width: 50px;
+  height: 50px;
+  animation: spinner 3s linear infinite;
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+button {
+  display: inline-block;
+  background-color: #172432;
+  border: solid 1px;
+  color: #ddd;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 
+    background-color 1s,
+    color 1s;
+}
+
+button:hover {
+  border: solid 1px;
+  background-color: #485f77;
+  color: black;
+}
+
+.post {
+  width: 50px;
+  height: auto;
+  transition: all 0.5s ease-out;
+}
+
+.dropbox {
+  margin: 30px;
+  width: 300px;
+  height: 300px;
+  border: 1px dotted grey;
+  border-radius: 5px;
+}

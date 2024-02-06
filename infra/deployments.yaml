@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:6.0.13-jammy
+        ports:
+        - containerPort: 27017
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-api-deployment
+  labels:
+    app: post-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: post-api
+  template:
+    metadata:
+      labels:
+        app: post-api
+    spec:
+      containers:
+      - name: post-api
+        image: lfmtsml/post-service:latest
+        ports:
+        - containerPort: 8090
+        env:
+          - name: MONGODB_URI
+            valueFrom:
+              configMapKeyRef:
+                name: post-app-config
+                key: mongodb_uri
+          - name: MONGODB_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: post-app-config
+                key: mongodb_database
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-app-deployment
+  labels:
+    app: post-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-app
+  template:
+    metadata:
+      labels:
+        app: post-app
+    spec:
+      containers:
+      - name: post-app
+        image: lfmtsml/post-app:latest
+        ports:
+        - containerPort: 80
+        env:
+          - name: POST_API_SVC_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: post-app-config
+                key: post_api_svc_host
+---

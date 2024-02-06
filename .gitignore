@@ -1,0 +1,6 @@
+token.txt
+token-empresarial.txt
+testing/
+*.jpg
+*.png
+*.zip
